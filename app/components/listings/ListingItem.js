@@ -1,38 +1,64 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import AppText from '../AppText'
 import colors from '../../config/colors';
+import { useNavigation } from '@react-navigation/native';
+import console_colors from '../../dummy-data/console_colors';
+import consoleImgs from '../../config/consoleImgs';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function ListingItem({item}) {
+export default function ListingItem({ item }) {
+    const navigation = useNavigation();
+
+
     return (
-        <View key={item.id} style={styles.listings_item} >
-            <Image
-                style={styles.listing_image}
-                source={{
-                    uri: item.img,
-                }}
-            />
-            <View style={styles.listing_info}>
-                <View style={styles.listing_info_header}>
-                    <View style={styles.listing_platform_circle}></View>
-                    <AppText style={styles.listing_info_title}>{item.title}</AppText>
-                </View>
-                <View style={styles.listing_info_footer}>
-                    <AppText style={styles.listing_info_timestamp}>2 minutes ago</AppText>
-                    <AppText style={styles.listing_info_price}>{item.price}€</AppText>
-                </View>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Listing', item)}>
 
+
+            <View key={item.id} style={styles.listings_item} >
+                <Image
+                    style={styles.listing_image}
+                    source={{
+                        uri: item.img,
+                    }}
+                />
+                <View style={styles.listing_info}>
+                    <View style={styles.listing_info_header}>
+                        <View style={[styles.listing_platform_circle, { backgroundColor: console_colors.find(element => element.name === item.platform).color }]}>
+                            <Image
+                                style={styles.platform_logo}
+                                source={consoleImgs[item.platform]}
+                            />
+                            { item.type === "game" 
+                            ? 
+                            <Ionicons  name="disc-outline" size={15} color="grey" style={styles.listing_type} />
+                            : 
+                            <Ionicons  name="md-game-controller-outline" size={15} color="grey" style={styles.listing_type} />
+                            } 
+
+                           
+
+
+                        </View>
+                        <AppText style={styles.listing_info_title}>{item.title}</AppText>
+                    </View>
+                    <View style={styles.listing_info_footer}>
+                        <AppText style={styles.listing_info_timestamp}>2 minutes ago</AppText>
+                        <AppText style={styles.listing_info_price}>{item.price}€</AppText>
+                    </View>
+
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 
 
 const styles = StyleSheet.create({
-   
+
 
     listings_item: {
-        height: 190,
+        height: 200,
         width: "48%",
         marginBottom: 15,
         borderRadius: 15,
@@ -62,12 +88,13 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-        elevation: 15
+        elevation: 15,
+        justifyContent: "center"
     },
     listing_info_title: {
         color: "white",
         width: "70%",
-        fontSize: 11,
+        fontSize: 14,
         fontWeight: "bold"
     },
 
@@ -78,13 +105,23 @@ const styles = StyleSheet.create({
         paddingRight: 12
     },
     listing_info_timestamp: {
-        color: "white",
-        fontSize: 7,
+        color: "grey",
+        fontSize: 9,
         paddingTop: 10
     },
     listing_info_price: {
 
-        fontSize: 18,
+        fontSize: 22,
         color: "white"
+    },
+    platform_logo: {
+        height: 22,
+        width: 22,
+        alignSelf: "center"
+    },
+    listing_type:{
+        position: "absolute",
+        top: 47,
+        left: 12
     }
 });

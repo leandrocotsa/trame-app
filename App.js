@@ -4,6 +4,11 @@ import AppLoading from 'expo-app-loading';
 import { useFonts, Outfit_400Regular, Outfit_600SemiBold } from '@expo-google-fonts/outfit';
 import MessagesScreen from "./app/screens/MessagesScreen";
 
+import { NavigationContainer } from '@react-navigation/native';
+
+import ListingsScreen from "./app/screens/ListingsScreen";
+import AppNavigator from "./app/navigation/AppNavigator";
+
 
 
 export default function App() {
@@ -19,7 +24,9 @@ export default function App() {
 
 
   return (
-    <MainScreen />
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
 
   );
 }

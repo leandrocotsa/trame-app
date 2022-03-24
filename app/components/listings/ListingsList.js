@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
 
     listings: {
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        marginBottom: 10
     }
 });

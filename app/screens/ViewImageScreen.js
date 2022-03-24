@@ -3,17 +3,18 @@ import React from 'react'
 
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function ViewImageScreen() {
+export default function ViewImageScreen({ route }) {
+
+    const listing = route.params;
+    
     return (
         <View style={styles.container}>
-            <View style={styles.close_icon}>
-                <FontAwesome5 name="window-close" size={20} color="white" />
-            </View>
+           
             <Image
                 resizeMode="contain"
                 style={styles.image}
                 source={{
-                    uri: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
+                    uri: listing.img
                 }}
             />
         </View>

@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput, Image } from 'react-native';
 
 
 
@@ -8,61 +8,13 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import ListingsList from "../components/listings/ListingsList";
 import Screen from "../components/Screen";
+import listings from "../dummy-data/listings";
+import { useNavigation } from "@react-navigation/native";
+import consoleImgs from "../config/consoleImgs";
 
 
 
 
-const listings = [
-    {
-        id: 1,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 2,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 3,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 4,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 5,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 6,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 7,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    },
-    {
-        id: 8,
-        title: "Mario Sunshine for the GameCube",
-        img: "https://ireland.apollo.olxcdn.com/v1/files/mq6y3xlh5fip1-PT/image;s=1000x700",
-        price: 22
-    }
-
-];
 
 
 
@@ -70,6 +22,8 @@ const listings = [
 export default function MainScreen(props) {
 
     const [text, onChangeText] = React.useState("");
+
+    const navigation = useNavigation();
 
 
 
@@ -85,7 +39,7 @@ export default function MainScreen(props) {
                     placeholderTextColor='grey'
                     value={text}
                     clearButtonMode="always"
-
+                    onSubmitEditing={() => navigation.navigate('Listings', text)}
                 />
             </View>
 
@@ -98,14 +52,23 @@ export default function MainScreen(props) {
                 <View style={styles.most_popular}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
                         <View style={[styles.most_popular_item, styles.most_popular_first_item, { backgroundColor: "#6A5FBB" }]}>
-
+                            <Image
+                                style={styles.most_popular_logo}
+                                source={consoleImgs["gamecube"]}
+                            />
                         </View>
 
                         <View style={[styles.most_popular_item, { backgroundColor: "#E60012" }]}>
-
+                            <Image
+                                style={styles.most_popular_logo}
+                                source={consoleImgs["switch"]}
+                            />
                         </View>
-                        <View style={[styles.most_popular_item, { backgroundColor: "#003791" }]}>
-
+                        <View style={[styles.most_popular_item, { backgroundColor: "#4365A2" }]}>
+                        <Image
+                                style={styles.most_popular_logo}
+                                source={consoleImgs["dreamcast"]}
+                            />
                         </View>
                     </ScrollView>
                 </View>
@@ -145,11 +108,14 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 10,
         paddingLeft: 20,
+        paddingRight: 10,
         borderRadius: 15,
-        color: 'white'
+        color: 'white',
+        justifyContent: "center"
     },
     search_bar_input: {
-        marginTop: 16
+        fontFamily: "Outfit_400Regular",
+        color: "white"
     },
     most_popular: {
 
@@ -162,7 +128,9 @@ const styles = StyleSheet.create({
         height: 100,
         width: 150,
         marginRight: 15,
-        borderRadius: 15
+        borderRadius: 15,
+        justifyContent: "center",
+        alignItems: "center"
 
     },
     most_popular_first_item: {
@@ -180,5 +148,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "space-between"
+    },
+    most_popular_logo: {
+        height: 50,
+        width: 50,
+
     }
 });

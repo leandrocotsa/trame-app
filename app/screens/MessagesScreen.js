@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
     },
     message_title: {
 
-        fontFamily: "Outfit_600SemiBold"
+        fontFamily: "Outfit_600SemiBold",
+        marginBottom: 5
     },
     message_content: {
         flexGrow: 1
