@@ -17,6 +17,7 @@ export default function App() {
     Outfit_400Regular,
     Outfit_600SemiBold
   });
+  
 
   if (!fontsLoaded) {
     return <AppLoading />;
